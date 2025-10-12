@@ -4,8 +4,7 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "prepare": "npm install",
-        "build": "tsc -b && vite build",
+        "build": "npx tsc -b && vite build",
         "dev": "vite --open",
         "lint": "eslint .",
         "preview": "vite preview"
