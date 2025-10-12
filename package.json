@@ -23,7 +23,6 @@
         "embla-carousel-autoplay": "^8.6.0",
         "embla-carousel-react": "^8.6.0",
         "lucide-react": "^0.544.0",
-        "node-sass": "^9.0.0",
         "react": "^19.1.1",
         "react-dom": "^19.1.1",
         "sass-loader": "^16.0.5",
