@@ -1,4 +1,9 @@
 {
     "buildCommand": "npm run build",
-    "framework": null
+    "framework": null,
+    "build": {
+        "env": {
+            "NODE_ENV": "development"
+        }
+    }
 }
