@@ -17,5 +17,8 @@ export default defineConfig({
                 additionalData: `@use "@scss/global/application-wide" as *;`,
             }
         }
+    },
+    build: {
+        outDir: 'dist'
     }
 })
