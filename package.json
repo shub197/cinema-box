@@ -4,11 +4,11 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
+        "prepare": "npm install",
+        "build": "tsc -b && vite build",
         "dev": "vite --open",
-        "build": "echo '✅ Build script reached' && npx tsc -v && npx vite build",
         "lint": "eslint .",
-        "preview": "vite preview",
-        "prepare": "npm install"
+        "preview": "vite preview"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^7.1.0",
