@@ -70,4 +70,17 @@ const searchMovies = async (searchString: string | null) => {
     }
 }
 
-export { retrieveMovieList, retrievePopularMovieList, searchMovies }
+const retrieveVideoDetailsById = async (type: string, movieId: number) => {
+    try {
+        if (!type) return;
+        const endPoint = '3/' + type + '/' + movieId + '/videos';
+        const response = await apiProperties.get(endPoint);
+        return response;
+    } catch (error) {
+
+    } finally {
+
+    }
+}
+
+export { retrieveMovieList, retrievePopularMovieList, searchMovies, retrieveVideoDetailsById }

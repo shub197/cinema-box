@@ -3,11 +3,22 @@ import { retrieveMovieList, searchMovies } from '@/services/movie-service';
 import { Spinner } from '@/components/ui/spinner';
 import { Card } from '@/components/ui/card';
 import { useSearch } from '@/contexts/SearchContext';
+import { MovieDetailsDialog } from './MovieDetailsDialog';
 
 function MovieList() {
+    interface Movie {
+        id: number,
+        name: string,
+        title: string,
+        media_type: string,
+        overview: string
+    }
+
     const [movieList, setMovieList] = useState<{ [key: string]: any }[]>([])
-    const [fetchingMovieList, setFetching] = useState<Boolean | null>(null);
+    const [fetchingMovieList, setFetching] = useState<boolean | null>(null);
     const { searchValue } = useSearch();
+    const [showDialog, setShowDialogValue] = useState<boolean>(false);
+    const [selectedMovie, setSelectedMovie] = useState<Movie>()
 
     const fetchMovieList = async () => {
         setFetching(true);
@@ -50,23 +61,38 @@ function MovieList() {
         (searchValue) ? searchMovie() : fetchMovieList();
     }, [searchValue])
 
+    function setUpMovieDetailsDialog(movie: any) {
+        setShowDialogValue(true)
+        setSelectedMovie(movie);
+    }
+
     return (
         fetchingMovieList ? <div className="vertical-and-hz-center"><Spinner className="size-20" /></div> :
             <div className="movie-list-container">
                 {
                     (movieList && movieList.length > 0) ? movieList.map((movie, index) => {
                         return (
-                            <div key={index} className="movie-item">
-                                <Card className="image-card p-[unset] rounded-[4px]">
-                                    <img src={movie.imageForDisplayInUi} alt={movie.name}
-                                        className="rounded-[4px] movie-poster-img" />
-                                </Card>
+                            <div onClick={() => setUpMovieDetailsDialog(movie)} key={index}>
+                                <div className="movie-item cursor-pointer">
+                                    <Card className="image-card p-[unset] rounded-[4px]">
+                                        <img src={movie.imageForDisplayInUi} alt={movie.name}
+                                            className="rounded-[4px] movie-poster-img" />
+                                    </Card>
 
-                                <div className="name text-[12px]">{movie.title ? movie.title : movie.name}</div>
+                                    <div className="name text-[12px]">{movie.title ? movie.title : movie.name}</div>
+                                </div>
                             </div>
                         )
                     }) : <div className="vertical-and-hz-center text-[grey] italic">No movies found</div>
+
+
                 }
+
+                {selectedMovie ? <MovieDetailsDialog
+                    movie={selectedMovie}
+                    setShowDialogValue={setShowDialogValue}
+                    showDialog={showDialog}
+                /> : null}
             </div>
     )
 }
