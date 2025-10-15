@@ -16,7 +16,6 @@ function MovieSlider() {
         async function fetchPopularMovieList() {
             try {
                 const response = await retrievePopularMovieList();
-                console.log(response);
 
                 const localPopularMovieList: { [key: string]: any }[] = [];
 
@@ -28,7 +27,6 @@ function MovieSlider() {
                 }
 
                 setPopularMovieList(localPopularMovieList);
-                console.log(localPopularMovieList)
             } catch (error) {
 
             } finally {

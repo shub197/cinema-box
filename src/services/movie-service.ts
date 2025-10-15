@@ -17,7 +17,6 @@ const apiProperties = axios.create({
 apiProperties.interceptors.response.use(
     response => response,
     (error) => {
-        console.error('Error occurred during API call:', error);
         return Promise.reject(error);
     }
 )
@@ -34,7 +33,6 @@ const retrieveMovieList = async (pageNumber: number) => {
         var response = await apiProperties.get(endPoint, { params: params })
         return response;
     } catch (error) {
-        console.error(error);
 
     } finally {
 
