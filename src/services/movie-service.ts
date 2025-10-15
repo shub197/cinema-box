@@ -22,13 +22,13 @@ apiProperties.interceptors.response.use(
     }
 )
 
-const retrieveMovieList = async () => {
+const retrieveMovieList = async (pageNumber: number) => {
     try {
         var endPoint = '3/trending/all/day';
 
         const params: QueryParams = {
             language: 'en-US',
-            page: 1
+            page: pageNumber
         }
 
         var response = await apiProperties.get(endPoint, { params: params })

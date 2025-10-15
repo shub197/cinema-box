@@ -18,17 +18,20 @@ function MovieList() {
     const [fetchingMovieList, setFetching] = useState<boolean | null>(null);
     const { searchValue } = useSearch();
     const [showDialog, setShowDialogValue] = useState<boolean>(false);
-    const [selectedMovie, setSelectedMovie] = useState<Movie>()
+    const [selectedMovie, setSelectedMovie] = useState<Movie>();
 
     const fetchMovieList = async () => {
-        setFetching(true);
-        try {
-            const response = await retrieveMovieList()
-            createNewMovieList(response);
-        } catch (error) {
+        for (let pageNumber = 1; pageNumber <= 6; pageNumber++) {
+            setFetching(true);
 
-        } finally {
-            setFetching(false);
+            try {
+                const response = await retrieveMovieList(pageNumber)
+                createNewMovieList(response);
+            } catch (error) {
+
+            } finally {
+                setFetching(false);
+            }
         }
     }
 
@@ -54,11 +57,11 @@ function MovieList() {
             localMovieList.push(movieItem);
         })
 
-        setMovieList(localMovieList);
+        setMovieList((searchValue && searchValue.length > 0) ? localMovieList : (prev => [...prev, ...localMovieList]));
     }
 
     useEffect(() => {
-        (searchValue) ? searchMovie() : fetchMovieList();
+        (searchValue && searchValue.length > 0) ? searchMovie() : fetchMovieList();
     }, [searchValue])
 
     function setUpMovieDetailsDialog(movie: any) {
@@ -67,33 +70,39 @@ function MovieList() {
     }
 
     return (
-        fetchingMovieList ? <div className="vertical-and-hz-center"><Spinner className="size-20" /></div> :
-            <div className="movie-list-container">
-                {
-                    (movieList && movieList.length > 0) ? movieList.map((movie, index) => {
-                        return (
-                            <div onClick={() => setUpMovieDetailsDialog(movie)} key={index}>
-                                <div className="movie-item cursor-pointer">
-                                    <Card className="image-card p-[unset] rounded-[4px]">
-                                        <img src={movie.imageForDisplayInUi} alt={movie.name}
-                                            className="rounded-[4px] movie-poster-img" />
-                                    </Card>
+        <div>
+            {
+                fetchingMovieList ? <div className="vertical-and-hz-center"><Spinner className="size-20" /></div> :
+                    <div className="movie-list-container">
+                        {
+                            (movieList && movieList.length > 0) ? movieList.map((movie, index) => {
+                                return (
+                                    <div
+                                        onClick={() => setUpMovieDetailsDialog(movie)}
+                                        key={index}
+                                        className="movie-item cursor-pointer"
+                                    >
+                                        <Card className="image-card p-[unset] rounded-[4px]">
+                                            <img src={movie.imageForDisplayInUi} alt={movie.name}
+                                                className="rounded-[4px] movie-poster-img" />
+                                        </Card>
 
-                                    <div className="name text-[12px]">{movie.title ? movie.title : movie.name}</div>
-                                </div>
-                            </div>
-                        )
-                    }) : <div className="vertical-and-hz-center text-[grey] italic">No movies found</div>
+                                        <div className="name text-[12px]">{movie.title ? movie.title : movie.name}</div>
+                                    </div>
+                                )
+                            }) : <div className="vertical-and-hz-center text-[grey] italic">No movies found</div>
 
 
-                }
+                        }
 
-                {selectedMovie ? <MovieDetailsDialog
-                    movie={selectedMovie}
-                    setShowDialogValue={setShowDialogValue}
-                    showDialog={showDialog}
-                /> : null}
-            </div>
+                        {selectedMovie ? <MovieDetailsDialog
+                            movie={selectedMovie}
+                            setShowDialogValue={setShowDialogValue}
+                            showDialog={showDialog}
+                        /> : null}
+                    </div>
+            }
+        </div>
     )
 }
 

@@ -50,32 +50,30 @@ function MovieDetailsDialog({ movie, showDialog, setShowDialogValue }: ChildProp
 
     return (
         <Dialog open={showDialog} onOpenChange={setShowDialogValue}>
-            <DialogContent className="min-w-[300px] max-w-[800px]">
+            <DialogContent className="h-[75vh] min-w-[300px] max-w-[800px]">
                 <DialogHeader>
                     <DialogTitle>{movie ? (movie.name ? movie.name : movie.title) : 'Details'}</DialogTitle>
                     <DialogDescription></DialogDescription>
                 </DialogHeader>
 
-                <div className="">
-                    {
-                        fetching ? <div className="place-items-center"><Spinner className="size-20" /></div> :
-                            <>
-                                <div className="mb-[6px]">
-                                    <iframe
-                                        className="min-h-[400px] rounded-[4px]"
-                                        src={(videoDetails && videoDetails.embeddedUrl) ? videoDetails.embeddedUrl : undefined}
-                                        width="100%"
-                                        height="200"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    ></iframe>
-                                </div>
+                {
+                    fetching ? <div className="place-items-center"><Spinner className="size-20" /></div> :
+                        <div className="overflow-auto">
+                            <div className="mb-[6px]">
+                                <iframe
+                                    className="h-[400px] rounded-[4px]"
+                                    src={(videoDetails && videoDetails.embeddedUrl) ? videoDetails.embeddedUrl : undefined}
+                                    width="100%"
+                                    height="200"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                ></iframe>
+                            </div>
 
-                                <div className="text-xs">
-                                    {movie.overview}
-                                </div>
-                            </>
-                    }
-                </div>
+                            <div className="text-xs font-bold">
+                                {movie.overview}
+                            </div>
+                        </div>
+                }
             </DialogContent>
         </Dialog>
     )
