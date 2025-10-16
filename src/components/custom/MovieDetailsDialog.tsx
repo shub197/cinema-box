@@ -50,7 +50,7 @@ function MovieDetailsDialog({ movie, showDialog, setShowDialogValue }: ChildProp
 
     return (
         <Dialog open={showDialog} onOpenChange={setShowDialogValue}>
-            <DialogContent className="h-[75vh] min-w-[300px] max-w-[800px]">
+            <DialogContent className="sm:h-[auto] md:h-[auto] lg:h-[70vh] min-w-[300px] max-w-[800px] w-[95%]">
                 <DialogHeader>
                     <DialogTitle>{movie ? (movie.name ? movie.name : movie.title) : 'Details'}</DialogTitle>
                     <DialogDescription></DialogDescription>
@@ -61,7 +61,7 @@ function MovieDetailsDialog({ movie, showDialog, setShowDialogValue }: ChildProp
                         <div className="overflow-auto">
                             <div className="mb-[6px]">
                                 <iframe
-                                    className="h-[400px] rounded-[4px]"
+                                    className="h-[200px] sm:h-[250px] md:h-[380px] lg:h-[380px] xl:h-[380px] rounded-[4px]"
                                     src={(videoDetails && videoDetails.embeddedUrl) ? videoDetails.embeddedUrl : undefined}
                                     width="100%"
                                     height="200"
