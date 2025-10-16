@@ -33,7 +33,7 @@ const retrieveMovieList = async (pageNumber: number) => {
         var response = await apiProperties.get(endPoint, { params: params })
         return response;
     } catch (error) {
-
+        throw error;
     } finally {
 
     }
@@ -45,7 +45,7 @@ const retrievePopularMovieList = async () => {
         var response = await apiProperties.get(endPoint)
         return response;
     } catch (error) {
-
+        throw error;
     } finally {
 
     }
@@ -62,7 +62,7 @@ const searchMovies = async (searchString: string | null) => {
         const response = await apiProperties.get(endPoint, { params: params })
         return response;
     } catch (error) {
-
+        throw error;
     } finally {
 
     }
@@ -75,7 +75,7 @@ const retrieveVideoDetailsById = async (type: string, movieId: number) => {
         const response = await apiProperties.get(endPoint);
         return response;
     } catch (error) {
-
+        throw error;
     } finally {
 
     }

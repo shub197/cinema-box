@@ -21,17 +21,17 @@ function MovieList() {
     const [selectedMovie, setSelectedMovie] = useState<Movie>();
 
     const fetchMovieList = async () => {
-        for (let pageNumber = 1; pageNumber <= 6; pageNumber++) {
-            setFetching(true);
+        setFetching(true);
 
-            try {
+        try {
+            for (let pageNumber = 1; pageNumber <= 6; pageNumber++) {
                 const response = await retrieveMovieList(pageNumber)
                 createNewMovieList(response);
-            } catch (error) {
-
-            } finally {
-                setFetching(false);
             }
+        } catch (error) {
+
+        } finally {
+            setFetching(false);
         }
     }
 
