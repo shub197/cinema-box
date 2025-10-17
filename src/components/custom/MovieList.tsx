@@ -80,11 +80,14 @@ function MovieList() {
                                     <div
                                         onClick={() => setUpMovieDetailsDialog(movie)}
                                         key={index}
-                                        className="movie-item cursor-pointer"
+                                        className="w-[70px] sm:w-[75px] md:w-[120px] lg:w-[130px] movie-item cursor-pointer"
                                     >
-                                        <Card className="image-card p-[unset] rounded-[4px]">
-                                            <img src={movie.imageForDisplayInUi} alt={movie.name}
-                                                className="rounded-[4px] movie-poster-img" />
+                                        <Card className="h-[90px] sm:h-[90px] md:h-[180px] lg:h-[180px] image-card p-[unset] rounded-[4px]">
+                                            <img src={movie.imageForDisplayInUi}
+                                                alt={movie.name}
+                                                className="h-[90px] sm:h-[90px] md:h-[180px] lg:h-[180px]
+                                                rounded-[4px] movie-poster-img"
+                                            />
                                         </Card>
 
                                         <div className="name text-[12px]">{movie.title ? movie.title : movie.name}</div>

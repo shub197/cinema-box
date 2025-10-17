@@ -51,13 +51,11 @@
 
     .movie-item {
         margin: 0px 8px 12px 8px;
-        width: 130px;
+        // width: 130px;
 
         .image-card {
-            height: 180px;
 
             img {
-                height: 180px;
                 object-fit: cover;
             }
         }
@@ -66,7 +64,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            width: 128px;
+            max-width: 128px;
             font-weight: bold;
             margin-top: 2px;
             color: #333;
