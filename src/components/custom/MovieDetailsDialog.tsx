@@ -27,6 +27,13 @@ function MovieDetailsDialog({ movie, showDialog, setShowDialogValue }: ChildProp
     const [videoDetails, setVideoDetails] = useState<VideoDetails | null>(null);
     const [fetching, setFetching] = useState<boolean | null>(null)
 
+    useEffect(() => {
+        if (showDialog == false) {
+            setVideoDetails(null);
+            setFetching(null);
+        }
+    }, [showDialog])
+
     const fetchVideDetailsById = async () => {
         setFetching(true);
         try {

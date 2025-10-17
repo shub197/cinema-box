@@ -98,7 +98,7 @@ function MovieList() {
 
                         }
 
-                        {selectedMovie ? <MovieDetailsDialog
+                        {(showDialog == true && selectedMovie) ? <MovieDetailsDialog
                             movie={selectedMovie}
                             setShowDialogValue={setShowDialogValue}
                             showDialog={showDialog}
