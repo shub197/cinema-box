@@ -11,7 +11,8 @@ function MovieList() {
         name: string,
         title: string,
         media_type: string,
-        overview: string
+        overview: string,
+        releaseYear: string
     }
 
     const [movieList, setMovieList] = useState<{ [key: string]: any }[]>([])
@@ -53,6 +54,8 @@ function MovieList() {
         }[] = [];
 
         response?.data?.results?.forEach((movieItem: any) => {
+            const releaseDate: Date = new Date(movieItem.release_date ? movieItem.release_date : movieItem.first_air_date);
+            movieItem.releaseYear = releaseDate.getFullYear();
             movieItem.imageForDisplayInUi = 'https://image.tmdb.org/t/p/original' + movieItem.poster_path;
             localMovieList.push(movieItem);
         })
@@ -90,7 +93,10 @@ function MovieList() {
                                             />
                                         </Card>
 
-                                        <div className="name text-[12px]">{movie.title ? movie.title : movie.name}</div>
+                                        <div className="name text-[12px]">
+                                            {movie.title ? movie.title : movie.name}
+                                            <span className="ml-[3px]">({movie.releaseYear})</span>
+                                        </div>
                                     </div>
                                 )
                             }) : <div className="vertical-and-hz-center text-[grey] italic">No movies found</div>

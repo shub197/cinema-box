@@ -14,7 +14,8 @@ interface Movie {
     name: string,
     title: string,
     media_type: string,
-    overview: string
+    overview: string,
+    releaseYear: string
 }
 
 interface VideoDetails {
@@ -59,7 +60,10 @@ function MovieDetailsDialog({ movie, showDialog, setShowDialogValue }: ChildProp
         <Dialog open={showDialog} onOpenChange={setShowDialogValue}>
             <DialogContent className="sm:h-[auto] md:h-[auto] lg:h-[70vh] min-w-[300px] max-w-[800px] w-[95%]">
                 <DialogHeader>
-                    <DialogTitle>{movie ? (movie.name ? movie.name : movie.title) : 'Details'}</DialogTitle>
+                    <DialogTitle>
+                        {movie ? (movie.name ? movie.name : movie.title) : 'Details'}
+                        <span className="ml-[3px]">({movie.releaseYear})</span>
+                    </DialogTitle>
                     <DialogDescription></DialogDescription>
                 </DialogHeader>
 
