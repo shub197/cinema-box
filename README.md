@@ -1,4 +1,4 @@
-> [! NOTE]
+> [!NOTE]
 > If movies aren't loading, please try changing your browser's DNS server.
 
 # Cinema Box
