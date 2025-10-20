@@ -1,3 +1,6 @@
+> [! NOTE]
+> If movies aren't loading, please try changing your browser's DNS server.
+
 # Cinema Box
 Web app for searching movie
 
@@ -7,5 +10,3 @@ Web app for searching movie
 # To view app
 [Click here](https://cinema-box-mocha.vercel.app/)
 
-> [! NOTE]
-> If movies aren't loading, please try changing your browser's DNS server.
