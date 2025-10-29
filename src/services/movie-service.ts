@@ -4,7 +4,7 @@ interface QueryParams {
     [key: string]: any;
 }
 
-const token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMmZmY2I1ZTUyZmEzOTE5N2JlNjZlMjFiNmMzMDc4OCIsIm5iZiI6MTc1OTMxNzI2NC4yNzYsInN1YiI6IjY4ZGQwZDEwNDJmNDI2YTU5YWJiMWIwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qHhcS1NqvAtPsAjSHl2BAKMRPo_xV0aGfD7i5IgO0x8';
+const token = import.meta.env.VITE_API_ACCESS_TOKEN;
 
 const apiProperties = axios.create({
     baseURL: 'https://api.themoviedb.org',
