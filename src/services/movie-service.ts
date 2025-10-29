@@ -23,14 +23,14 @@ apiProperties.interceptors.response.use(
 
 const retrieveMovieList = async (pageNumber: number) => {
     try {
-        var endPoint = '3/trending/all/day';
+        const endPoint = '3/trending/all/day';
 
         const params: QueryParams = {
             language: 'en-US',
             page: pageNumber
         }
 
-        var response = await apiProperties.get(endPoint, { params: params })
+        const response = await apiProperties.get(endPoint, { params: params })
         return response;
     } catch (error) {
         throw error;
@@ -41,8 +41,8 @@ const retrieveMovieList = async (pageNumber: number) => {
 
 const retrievePopularMovieList = async () => {
     try {
-        var endPoint = '3/movie/popular';
-        var response = await apiProperties.get(endPoint)
+        const endPoint = '3/movie/popular';
+        const response = await apiProperties.get(endPoint)
         return response;
     } catch (error) {
         throw error;
