@@ -59,7 +59,7 @@ function MovieDetailsDialog({ movie, showDialog, setShowDialogValue }: ChildProp
     return (
         <Dialog open={showDialog} onOpenChange={setShowDialogValue}>
             <DialogContent className="sm:h-[auto] md:h-[auto] lg:h-[70vh] min-w-[300px] max-w-[800px] w-[95%]">
-                <DialogHeader>
+                <DialogHeader className="gap-[unset]">
                     <DialogTitle>
                         {movie ? (movie.name ? movie.name : movie.title) : 'Details'}
                         <span className="ml-[3px]">({movie.releaseYear})</span>
