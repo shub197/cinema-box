@@ -58,8 +58,8 @@ function MovieDetailsDialog({ movie, showDialog, setShowDialogValue }: ChildProp
 
     return (
         <Dialog open={showDialog} onOpenChange={setShowDialogValue}>
-            <DialogContent className="sm:h-[auto] md:h-[auto] lg:h-[70vh] min-w-[300px] max-w-[800px] w-[95%]">
-                <DialogHeader className="gap-[unset]">
+            <DialogContent className="max-h-[80vh] overflow-y-auto max-w-[800px] w-[95%]">
+                <DialogHeader>
                     <DialogTitle>
                         {movie ? (movie.name ? movie.name : movie.title) : 'Details'}
                         <span className="ml-[3px]">({movie.releaseYear})</span>
@@ -69,7 +69,7 @@ function MovieDetailsDialog({ movie, showDialog, setShowDialogValue }: ChildProp
 
                 {
                     fetching ? <div className="place-items-center"><Spinner className="size-20" /></div> :
-                        <div className="overflow-auto">
+                        <div>
                             <div className="mb-[6px]">
                                 <iframe
                                     className="h-[200px] sm:h-[250px] md:h-[380px] lg:h-[380px] xl:h-[380px] rounded-[4px]"
