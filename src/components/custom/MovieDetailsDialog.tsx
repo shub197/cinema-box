@@ -2,20 +2,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { useState, useEffect } from 'react';
 import { retrieveVideoDetailsById } from '@/services/movie-service';
 import { Spinner } from '@/components/ui/spinner';
+import { type Movie } from '@/interfaces/Movie';
 
 interface ChildProps {
     movie: Movie,
     showDialog: boolean,
     setShowDialogValue: (value: boolean) => void
-}
-
-interface Movie {
-    id: number,
-    name: string,
-    title: string,
-    media_type: string,
-    overview: string,
-    releaseYear: string
 }
 
 interface VideoDetails {

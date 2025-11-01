@@ -9,9 +9,7 @@ function Home() {
 
             <main className="movie-container-body">
                 <MovieList />
-                <div>
-                    <SearchBar />
-                </div>
+                <SearchBar />
             </main>
         </>
     )

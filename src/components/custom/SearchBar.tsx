@@ -18,18 +18,20 @@ function SearchBar() {
     }
 
     return (
-        <div className="search-bar relative">
-            <div className="search-input">
-                <Input
-                    type="text"
-                    placeholder="Search Movies & TV Shows..."
-                    value={searchValue}
-                    onChange={onSearchValueChange}
-                    className="text-[14px]"
-                />
+        <div>
+            <div className="search-bar">
+                <div className="search-input">
+                    <Input
+                        type="text"
+                        placeholder="Search Movies & TV Shows..."
+                        value={searchValue}
+                        onChange={onSearchValueChange}
+                        className="text-[14px]"
+                    />
 
-                <div onClick={clearSearchBar} className="cursor-pointer absolute right-4 top-[12px]">
-                    <FontAwesomeIcon className="text-[13px]" icon="times" />
+                    <div onClick={clearSearchBar} className="cursor-pointer absolute right-4 top-[10px]">
+                        <FontAwesomeIcon className="text-[13px]" icon="times" />
+                    </div>
                 </div>
             </div>
         </div>

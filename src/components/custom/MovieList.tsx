@@ -4,35 +4,32 @@ import { Spinner } from '@/components/ui/spinner';
 import { Card } from '@/components/ui/card';
 import { useSearch } from '@/contexts/SearchContext';
 import { MovieDetailsDialog } from './MovieDetailsDialog';
+import { type Movie } from '@/interfaces/Movie';
 
 function MovieList() {
-    interface Movie {
-        id: number,
-        name: string,
-        title: string,
-        media_type: string,
-        overview: string,
-        releaseYear: string
-    }
-
-    const [movieList, setMovieList] = useState<{ [key: string]: any }[]>([])
+    const [movieList, setMovieList] = useState<Movie[]>([])
     const [fetchingMovieList, setFetching] = useState<boolean | null>(null);
     const { searchValue } = useSearch();
     const [showDialog, setShowDialogValue] = useState<boolean>(false);
     const [selectedMovie, setSelectedMovie] = useState<Movie>();
+    let newMovieList: Movie[] = [];
+
+    useEffect(() => {
+        (searchValue && searchValue.length > 0) ? searchMovie() : fetchMovieList();
+    }, [searchValue])
 
     const fetchMovieList = async () => {
         setFetching(true);
 
-        try {
-            for (let pageNumber = 1; pageNumber <= 6; pageNumber++) {
+        for (let pageNumber = 1; pageNumber <= 6; pageNumber++) {
+            try {
                 const response = await retrieveMovieList(pageNumber)
                 createNewMovieList(response);
-            }
-        } catch (error) {
+            } catch (error) {
 
-        } finally {
-            setFetching(false);
+            } finally {
+                if (pageNumber == 6) setFetching(false);
+            }
         }
     }
 
@@ -49,25 +46,21 @@ function MovieList() {
     }
 
     function createNewMovieList(response: any) {
-        const localMovieList: {
-            [key: string]: any
-        }[] = [];
+        response?.data?.results?.forEach((movieItem: Movie) => {
+            const releaseDateString = movieItem.release_date ? movieItem.release_date :
+                movieItem.first_air_date ? movieItem.first_air_date : null;
 
-        response?.data?.results?.forEach((movieItem: any) => {
-            const releaseDate: Date = new Date(movieItem.release_date ? movieItem.release_date : movieItem.first_air_date);
-            movieItem.releaseYear = releaseDate.getFullYear();
+            const releaseDate: Date | null = releaseDateString ? new Date(releaseDateString) : null;
+            movieItem.releaseYear = releaseDate ? releaseDate.getFullYear() : null;
+
             movieItem.imageForDisplayInUi = 'https://image.tmdb.org/t/p/original' + movieItem.poster_path;
-            localMovieList.push(movieItem);
+            newMovieList.push(movieItem);
         })
 
-        setMovieList((searchValue && searchValue.length > 0) ? localMovieList : (prev => [...prev, ...localMovieList]));
+        setMovieList(newMovieList);
     }
 
-    useEffect(() => {
-        (searchValue && searchValue.length > 0) ? searchMovie() : fetchMovieList();
-    }, [searchValue])
-
-    function setUpMovieDetailsDialog(movie: any) {
+    function setUpMovieDetailsDialog(movie: Movie) {
         setShowDialogValue(true)
         setSelectedMovie(movie);
     }

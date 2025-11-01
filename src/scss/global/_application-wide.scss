@@ -88,11 +88,16 @@
 }
 
 .search-bar {
+    transform: translate(-50%, -6px);
     position: fixed;
     bottom: 0px;
-    padding: 8px;
+    right: 50%;
+    left: 50%;
+    border-radius: 8px;
+    padding: 6px;
     background-color: #fafafa;
-    width: 100%;
+    max-width: 620px;
+    width: calc(100% - 20px);
     box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.1);
 
     .search-input {
