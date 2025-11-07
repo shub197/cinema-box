@@ -20,7 +20,7 @@ function MovieList() {
         if (searchValue && searchValue.length > 0) {
             debounceHandler = setTimeout(() => {
                 searchMovie();
-            }, 500)
+            }, 1000)
         } else {
             fetchMovieList();
         }
@@ -35,7 +35,7 @@ function MovieList() {
 
         for (let pageNumber = 1; pageNumber <= 6; pageNumber++) {
             try {
-                const response = await retrieveMovieList(pageNumber)
+                const response = await retrieveMovieList(pageNumber);
                 createNewMovieList(response);
             } catch (error) {
 
