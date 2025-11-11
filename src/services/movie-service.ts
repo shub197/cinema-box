@@ -21,7 +21,7 @@ apiProperties.interceptors.response.use(
     }
 )
 
-const retrieveMovieList = async (pageNumber: number) => {
+const retrieveMovieList = async (pageNumber: number | null) => {
     try {
         const endPoint = '3/trending/all/day';
 
@@ -51,12 +51,13 @@ const retrievePopularMovieList = async () => {
     }
 }
 
-const searchMovies = async (searchString: string | null) => {
+const searchMovies = async (searchString: string | null, pageNumber: number | null) => {
     try {
         const endPoint = '3/search/multi';
 
         const params: QueryParams = {
-            query: searchString
+            query: searchString,
+            page: pageNumber
         }
 
         const response = await apiProperties.get(endPoint, { params: params })

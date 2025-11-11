@@ -7,7 +7,7 @@ export interface Movie {
     releaseYear: number | null,
     release_date: string | null,
     first_air_date: string | null,
-    imageForDisplayInUi: string,
+    imageUrl: string,
     poster_path: string
 }
 

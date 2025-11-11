@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useSearch } from '@/contexts/SearchContext';
 
 function SearchBar() {
-    const [searchValue, updateSearchBarInputSearchValue] = useState<string>('');
+    const [searchValue, updateSearchBarInputSearchValue] = useState<string | null>(null);
     const { setSearchValue } = useSearch()
 
     function onSearchValueChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -13,8 +13,8 @@ function SearchBar() {
     }
 
     function clearSearchBar() {
-        updateSearchBarInputSearchValue('');
-        setSearchValue('');
+        updateSearchBarInputSearchValue(null);
+        setSearchValue(null);
     }
 
     return (
@@ -24,7 +24,7 @@ function SearchBar() {
                     <Input
                         type="text"
                         placeholder="Search Movies & TV Shows..."
-                        value={searchValue}
+                        value={searchValue ? searchValue : ''}
                         onChange={onSearchValueChange}
                         className="text-[14px]"
                     />

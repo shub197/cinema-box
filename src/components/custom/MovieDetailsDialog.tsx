@@ -52,7 +52,11 @@ function MovieDetailsDialog({ movie, showDialog, setShowDialogValue }: ChildProp
                 <DialogHeader className="dialog-header gap-[18px]">
                     <DialogTitle>
                         {movie ? (movie.name ? movie.name : movie.title) : 'Details'}
-                        <span className="ml-[3px]">({movie.releaseYear})</span>
+
+                        {
+                            movie.releaseYear && <span className="ml-[3px]">({movie.releaseYear})</span>
+                        }
+
                     </DialogTitle>
                     <DialogDescription></DialogDescription>
                 </DialogHeader>
