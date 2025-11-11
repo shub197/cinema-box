@@ -7,6 +7,6 @@ Web app for searching movie
 # Screenshots
 ![Screenshots](./src/assets/images/screenshot-1.png)
 
-# To view app
+# To View App
 [Click here](https://cinema-box-mocha.vercel.app/)
 
