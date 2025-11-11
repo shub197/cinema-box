@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card';
 import { useSearch } from '@/contexts/SearchContext';
 import { MovieDetailsDialog } from './MovieDetailsDialog';
 import { type Movie } from '@/interfaces/Movie';
+import noImageAvailableImage from '@/assets/images/no-image-available.jpg';
 
 function MovieList() {
     const [movieList, setMovieList] = useState<Movie[]>([])
@@ -93,7 +94,7 @@ function MovieList() {
             movieItem.releaseYear = releaseDate ? releaseDate.getFullYear() : null;
 
             movieItem.imageUrl = movieItem.poster_path ?
-                `https://image.tmdb.org/t/p/original${movieItem.poster_path}` : '/src/assets/images/no-image-available.jpg';
+                `https://image.tmdb.org/t/p/original${movieItem.poster_path}` : noImageAvailableImage;
             localMovieList.push(movieItem);
         })
 
