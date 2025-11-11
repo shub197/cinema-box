@@ -93,7 +93,7 @@ function MovieList() {
             movieItem.releaseYear = releaseDate ? releaseDate.getFullYear() : null;
 
             movieItem.imageUrl = movieItem.poster_path ?
-                `https://image.tmdb.org/t/p/original${movieItem.poster_path}` : 'src/assets/images/no-image-available.jpg';
+                `https://image.tmdb.org/t/p/original${movieItem.poster_path}` : '/src/assets/images/no-image-available.jpg';
             localMovieList.push(movieItem);
         })
 
