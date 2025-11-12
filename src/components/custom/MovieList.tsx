@@ -117,9 +117,9 @@ function MovieList() {
                                     <div
                                         onClick={() => setUpMovieDetailsDialog(movie)}
                                         key={index}
-                                        className="w-[60px] sm:w-[60px] md:w-[100px] lg:w-[116px] max-w-[116px] movie-item cursor-pointer"
+                                        className="w-[70px] sm:w-[70px] md:w-[120px] lg:w-[120px] max-w-[100%] movie-item cursor-pointer"
                                     >
-                                        <Card className="h-[100px] sm:h-[100px] md:h-[150px] lg:h-[160px] image-card p-[unset] rounded-[4px]">
+                                        <Card className="h-[100px] sm:h-[100px] md:h-[160px] lg:h-[160px] image-card p-[unset] rounded-[4px]">
                                             <img src={movie.imageUrl}
                                                 alt={movie.name}
                                                 className="h-[inherit] rounded-[4px] movie-poster-img"
@@ -128,7 +128,7 @@ function MovieList() {
 
                                         <div className="name text-[12px]" >
                                             {movie.title ? movie.title : movie.name}
-                                            <span className="ml-[3px]" > ({movie.releaseYear}) </span>
+                                            <span className="ml-[3px]" >{movie.releaseYear && (movie.releaseYear)} </span>
                                         </div>
                                     </div>
                                 )
