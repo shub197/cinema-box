@@ -11,13 +11,12 @@ function MovieList() {
     const [movieList, setMovieList] = useState<Movie[]>([])
     const [fetchingMovieList, setFetching] = useState<boolean | null>(null);
     const { searchValue } = useSearch();
-    const [showDialog, setShowDialogValue] = useState<boolean>(false);
+    const [isDialogOpen, setIsDialogOpenValue] = useState<boolean>(false);
     const [selectedMovie, setSelectedMovie] = useState<Movie>();
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [hasMoreItems, setHasMoreItems] = useState<boolean>(true);
     const loaderReference = useRef<HTMLDivElement>(null);
-    let localTotalPages: number | null = 0;
-    let localMovieList: Movie[] = [];
+    let totalPages = useRef<number>(null);
 
     useEffect(() => {
         let fetchMoviesHandler: ReturnType<typeof setTimeout>;
@@ -33,9 +32,11 @@ function MovieList() {
     }, [searchValue]);
 
     function resetPageNumberAndHasMoreItems() {
+        totalPages.current = 0;
+        if (hasMoreItems == false) setHasMoreItems(true);
+
         if (pageNumber == 1) {
             if (movieList.length > 0 || (hasMoreItems == false)) {
-                setHasMoreItems(true);
                 setPageNumber(0);
             }
 
@@ -63,9 +64,13 @@ function MovieList() {
     }, [fetchingMovieList, hasMoreItems])
 
     useEffect(() => {
-        if (pageNumber == 0) setPageNumber(1);
-        if (pageNumber == 1 && movieList.length > 0) setMovieList([]);
-        if (pageNumber > 0) fetchMovieList();
+        if (pageNumber == 0) {
+            setPageNumber(1);
+
+        } else if (pageNumber > 0) {
+            if (pageNumber == 1 && movieList.length > 0) setMovieList([]);
+            fetchMovieList();
+        }
     }, [pageNumber])
 
     const fetchMovieList = async () => {
@@ -75,8 +80,8 @@ function MovieList() {
             const response = await ((searchValue) ? searchMovies(searchValue, pageNumber) : retrieveMovieList(pageNumber));
             createNewMovieList(response);
 
-            if (!localTotalPages) localTotalPages = response?.data?.total_pages;
-            if (pageNumber == localTotalPages) setHasMoreItems(false);
+            if (totalPages.current == 0) totalPages.current = response?.data?.total_pages;
+            if (pageNumber == totalPages.current) setHasMoreItems(false);
 
         } catch (error) {
 
@@ -86,23 +91,24 @@ function MovieList() {
     }
 
     function createNewMovieList(response: any) {
-        response?.data?.results?.forEach((movieItem: Movie) => {
+        const newMovieList = response?.data?.results?.map((movieItem: Movie) => {
             const releaseDateString = movieItem.release_date ? movieItem.release_date :
                 movieItem.first_air_date ? movieItem.first_air_date : null;
 
             const releaseDate: Date | null = releaseDateString ? new Date(releaseDateString) : null;
-            movieItem.releaseYear = releaseDate ? releaseDate.getFullYear() : null;
 
-            movieItem.imageUrl = movieItem.poster_path ?
-                `https://image.tmdb.org/t/p/original${movieItem.poster_path}` : noImageAvailableImage;
-            localMovieList.push(movieItem);
+            return {
+                ...movieItem,
+                releaseYear: releaseDate ? releaseDate.getFullYear() : null,
+                imageUrl: movieItem.poster_path ? `https://image.tmdb.org/t/p/original${movieItem.poster_path}` : noImageAvailableImage
+            }
         })
 
-        setMovieList((previousMovieList) => [...previousMovieList, ...localMovieList]);
+        setMovieList((previousMovieList) => [...previousMovieList, ...newMovieList]);
     }
 
     function setUpMovieDetailsDialog(movie: Movie) {
-        setShowDialogValue(true)
+        setIsDialogOpenValue(true)
         setSelectedMovie(movie);
     }
 
@@ -112,11 +118,11 @@ function MovieList() {
                 <div className="movie-list-container">
                     {
                         (movieList && movieList.length > 0) ?
-                            movieList.map((movie, index) => {
+                            movieList.map((movie) => {
                                 return (
                                     <div
                                         onClick={() => setUpMovieDetailsDialog(movie)}
-                                        key={index}
+                                        key={movie.id}
                                         className="w-[70px] sm:w-[70px] md:w-[120px] lg:w-[120px] max-w-[100%] movie-item cursor-pointer"
                                     >
                                         <Card className="h-[100px] sm:h-[100px] md:h-[160px] lg:h-[160px] image-card p-[unset] rounded-[4px]">
@@ -133,15 +139,15 @@ function MovieList() {
                                     </div>
                                 )
                             }) : (!fetchingMovieList) &&
-                            <div className="vertical-and-hz-center text-[grey] italic">No movies found</div>
+                            <div className="vertical-and-hz-center text-[grey] italic">No movies and shows found</div>
                     }
 
                     {
-                        (showDialog == true && selectedMovie) ?
+                        (isDialogOpen == true && selectedMovie) ?
                             <MovieDetailsDialog
                                 movie={selectedMovie}
-                                setShowDialogValue={setShowDialogValue}
-                                showDialog={showDialog}
+                                setIsDialogOpenValue={setIsDialogOpenValue}
+                                isDialogOpen={isDialogOpen}
                             />
                             : null
                     }
@@ -156,13 +162,13 @@ function MovieList() {
             }
 
             {
-                ((pageNumber != localTotalPages) && movieList.length > 0) &&
+                ((pageNumber != totalPages.current) && movieList.length > 0) &&
                 <div ref={loaderReference} className="mt-[10px] place-items-center"></div>
             }
 
             {
-                (pageNumber == localTotalPages) &&
-                <div className="mb-[12px] text-center italic text[grey]">All movies are loaded!</div>
+                ((pageNumber == totalPages.current) && !fetchingMovieList) &&
+                <div className="mb-[12px] text-center italic text[grey]">All movies and shows are loaded!</div>
             }
         </>
     )

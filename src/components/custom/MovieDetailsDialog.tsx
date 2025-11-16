@@ -6,8 +6,8 @@ import { type Movie } from '@/interfaces/Movie';
 
 interface ChildProps {
     movie: Movie,
-    showDialog: boolean,
-    setShowDialogValue: (value: boolean) => void
+    isDialogOpen: boolean,
+    setIsDialogOpenValue: (value: boolean) => void
 }
 
 interface VideoDetails {
@@ -16,7 +16,7 @@ interface VideoDetails {
     site: string
 }
 
-function MovieDetailsDialog({ movie, showDialog, setShowDialogValue }: ChildProps) {
+function MovieDetailsDialog({ movie, isDialogOpen, setIsDialogOpenValue }: ChildProps) {
     const [videoDetails, setVideoDetails] = useState<VideoDetails | null>(null);
     const [fetching, setFetching] = useState<boolean | null>(null)
 
@@ -38,16 +38,16 @@ function MovieDetailsDialog({ movie, showDialog, setShowDialogValue }: ChildProp
     }
 
     useEffect(() => {
-        if (showDialog) fetchVideDetailsById();
+        if (isDialogOpen) fetchVideDetailsById();
 
         return () => {
             setVideoDetails(null);
             setFetching(null);
         }
-    }, [showDialog])
+    }, [isDialogOpen])
 
     return (
-        <Dialog open={showDialog} onOpenChange={setShowDialogValue}>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpenValue}>
             <DialogContent className="max-h-[85vh] overflow-hidden max-w-[800px] w-[95%]">
                 <DialogHeader className="dialog-header gap-[18px]">
                     <DialogTitle>
