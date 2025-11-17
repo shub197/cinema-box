@@ -33,7 +33,6 @@ function MovieList() {
 
     function resetPageNumberAndHasMoreItems() {
         totalPages.current = 0;
-        if (hasMoreItems == false) setHasMoreItems(true);
 
         if (pageNumber == 1) {
             if (movieList.length > 0 || (hasMoreItems == false)) {
@@ -43,6 +42,8 @@ function MovieList() {
         } else if (pageNumber > 1) {
             setPageNumber(1);
         }
+
+        if (hasMoreItems == false) setHasMoreItems(true);
     }
 
     useEffect(() => {
