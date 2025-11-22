@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 interface QueryParams {
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 const token = import.meta.env.VITE_API_ACCESS_TOKEN;
@@ -21,7 +21,7 @@ apiProperties.interceptors.response.use(
     }
 )
 
-const retrieveMovieList = async (pageNumber: number | null) => {
+const retrieveMovieList = async (pageNumber: number | null, signal: AbortSignal) => {
     try {
         const endPoint = '3/trending/all/day';
 
@@ -30,28 +30,19 @@ const retrieveMovieList = async (pageNumber: number | null) => {
             page: pageNumber
         }
 
-        const response = await apiProperties.get(endPoint, { params: params })
+        const response = await apiProperties.get(endPoint, {
+            params: params,
+            signal: signal
+        })
+
         return response;
+
     } catch (error) {
         throw error;
-    } finally {
-
     }
 }
 
-const retrievePopularMovieList = async () => {
-    try {
-        const endPoint = '3/movie/popular';
-        const response = await apiProperties.get(endPoint)
-        return response;
-    } catch (error) {
-        throw error;
-    } finally {
-
-    }
-}
-
-const searchMovies = async (searchString: string | null, pageNumber: number | null) => {
+const searchMovies = async (searchString: string | null, pageNumber: number | null, signal: AbortSignal) => {
     try {
         const endPoint = '3/search/multi';
 
@@ -60,12 +51,11 @@ const searchMovies = async (searchString: string | null, pageNumber: number | nu
             page: pageNumber
         }
 
-        const response = await apiProperties.get(endPoint, { params: params })
+        const response = await apiProperties.get(endPoint, { params: params, signal: signal })
         return response;
+
     } catch (error) {
         throw error;
-    } finally {
-
     }
 }
 
@@ -74,6 +64,17 @@ const retrieveVideoDetailsById = async (type: string, movieId: number) => {
         if (!type) return;
         const endPoint = '3/' + type + '/' + movieId + '/videos';
         const response = await apiProperties.get(endPoint);
+        return response;
+
+    } catch (error) {
+        throw error;
+    }
+}
+
+const retrievePopularMovieList = async () => {
+    try {
+        const endPoint = '3/movie/popular';
+        const response = await apiProperties.get(endPoint)
         return response;
     } catch (error) {
         throw error;

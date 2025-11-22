@@ -90,4 +90,4 @@ function MovieDetailsDialog({ movie, isDialogOpen, setIsDialogOpenValue }: Child
     )
 }
 
-export { MovieDetailsDialog }
+export default MovieDetailsDialog;
