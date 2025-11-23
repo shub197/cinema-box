@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearch } from '@/contexts/SearchContext';
 
-function useDebounce(delay: number) {
+function useDebounceSearchValue(delay: number) {
     const [debouncedValue, setDebouncedValue] = useState<string | null>();
     const previousDebouncedValue = useRef<string | null>(null);
     const { searchValue } = useSearch();
@@ -26,4 +26,4 @@ function useDebounce(delay: number) {
     return debouncedValue;
 }
 
-export default useDebounce;
+export default useDebounceSearchValue;
