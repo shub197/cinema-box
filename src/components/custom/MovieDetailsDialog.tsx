@@ -4,7 +4,7 @@ import { retrieveVideoDetailsById } from '@/services/movie-service';
 import { Spinner } from '@/components/ui/spinner';
 import { type Movie } from '@/interfaces/Movie';
 
-interface ChildProps {
+interface Bindings {
     movie: Movie,
     isDialogOpen: boolean,
     setIsDialogOpenValue: (value: boolean) => void
@@ -16,7 +16,7 @@ interface VideoDetails {
     site: string
 }
 
-function MovieDetailsDialog({ movie, isDialogOpen, setIsDialogOpenValue }: ChildProps) {
+function MovieDetailsDialog({ movie, isDialogOpen, setIsDialogOpenValue }: Bindings) {
     const [videoDetails, setVideoDetails] = useState<VideoDetails | null>(null);
     const [fetching, setFetching] = useState<boolean | null>(null)
 
