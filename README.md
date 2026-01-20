@@ -5,7 +5,7 @@
 Web app for searching movie
 
 ## 🌐 Live Demo
-[Click here](https://cinema-box-mocha.vercel.app/)
+https://cinema-box-app.vercel.app/
 
 ---
 
